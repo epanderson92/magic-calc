@@ -77,11 +77,60 @@
 
 <script type="text/javascript">
 
+var inputNum1 = true;
+//var inputNum2 = true;
+var num1 = "";
+var num2 = "";
+var operator = "";
+var result;
+
+function clear(){
+    inputNum1=true;
+    num1="";
+    num2="";
+    result="";
+    operator="";
+}
+
+function calculator(){
+    if(operator==="plus")
+        result = parseInt(num1) + parseInt(num2);
+    if(operator==="minus")
+        result = parseInt(num1) - parseInt(num2);
+    if(operator==="divide")
+        result = parseInt(num1) / parseInt(num2);
+    if(operator==="times")
+        result = parseInt(num1) * parseInt(num2);
+    if(operator==="power")
+        result = Math.pow(parseInt(num1),parseInt(num2));
+}
+
 $(document).ready(function(){
 
-// Your code here...
-
-
+    $(".btn").on("click", function() {
+        if(this.classList.contains("number") && inputNum1){
+            num1+=this.value;
+         } 
+        else
+            if(this.classList.contains("operator") && inputNum1){
+                operator=this.value;
+                inputNum1=false;
+            }
+            else 
+                if(this.classList.contains("number") && !inputNum1){
+                  num2+=this.value;
+                }
+                else
+                    if(this.classList.contains("equal") && !inputNum1 && operator!=""){
+                       calculator();
+                       alert(result);
+                       clear();
+                    }
+        if(this.value==="clear"){
+            clear();              
+            }
+          });
+    
 });
 
 </script>
