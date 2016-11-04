@@ -93,20 +93,45 @@ $(document).ready(function(){
         inputNum2 = true;
         inputOperator = "";
         inputOperatorUsed = true;
-        inputNum2 = true;
+        num1Value = "";
         num2Value = "";
         totalValue = "";
-        whatsThatOperator = ""
+        whatsThatOperator = "";
         $("#firstNumber").html("");
         $("#secondNumber").html("");
         $("#operator").html("");
         $("#result").html("");
     }
 
+    function resetCalc(){
+        inputNum1 = true;
+        inputNum2 = true;
+        inputOperator = "";
+        inputOperatorUsed = true;
+        num1Value = "";
+        num2Value = "";
+        totalValue = "";
+        whatsThatOperator = "";
+    }
+    function calculator(){
+        if(inputOperator==="plus")
+            totalValue = parseInt(num1Value) + parseInt(num2Value);
+        if(inputOperator==="minus")
+            totalValue = parseInt(num1Value) - parseInt(num2Value);
+        if(inputOperator==="divide")
+            totalValue = parseInt(num1Value) / parseInt(num2Value);
+        if(inputOperator==="times")
+            totalValue = parseInt(num1Value) * parseInt(num2Value);
+        if(inputOperator==="#94")
+            totalValue = Math.pow(parseInt(num1Value),parseInt(num2Value));
+    }
     $(".btn").on("click", function() {
         if (inputNum1 && (parseInt($(this).val()) < 10)){
             num1Value += $(this).val();
             $("#firstNumber").html(num1Value);
+            $("#secondNumber").html("");
+            $("#operator").html("");
+            $("#result").html("");
         } else 
         if (($(this).val() != "equals" || $(this).val() != "clear") && inputNum1) {
             inputOperator=$(this).val();
@@ -115,28 +140,15 @@ $(document).ready(function(){
             inputNum1=false;
             inputOperatorUsed=false;
         } else
-        if (!inputNum1 && (parseInt($(this).val())) < 10){
+        if (!inputNum1 && (parseInt($(this).val())) < 10 && inputNum2){
             num2Value += $(this).val();
             $("#secondNumber").html(num2Value);
             inputNum2 = false;
         } else
         if($(this).val()=== "equals" && !inputNum1 && !inputNum2 && inputOperator!=""){
-            if(inputOperator==="plus"){
-                totalValue = parseInt(num1Value) + parseInt(num2Value);
-            }
-            if(inputOperator==="minus"){
-                totalValue = parseInt(num1Value) - parseInt(num2Value);
-            }
-            if(inputOperator==="times"){
-                totalValue = parseInt(num1Value) * parseInt(num2Value);
-            }
-            if(inputOperator==="divide"){
-                totalValue = parseInt(num1Value) / parseInt(num2Value);
-            }
-            if(inputOperator==="#94"){
-                totalValue = Math.pow(parseInt(num1Value), parseInt(num2Value));
-            }
+            calculator();
             $("#result").html(totalValue);
+            resetCalc();
         }
         if($(this).val()==="clear"){
             clear();
