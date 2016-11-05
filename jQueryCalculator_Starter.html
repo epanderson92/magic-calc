@@ -48,7 +48,7 @@
                     <br><br>
                     <button id="button0" class="btn btn-primary number" value="0"><h1>0</h1></button>
                     <button id="buttonDivide" class="btn btn-danger operator" value="divide"><h1>&divide;</h1></button>
-                    <button id="buttonPower" class="btn btn-danger operator" value="power"><h1>^</h1></button>
+                    <button id="buttonPower" class="btn btn-danger operator" value="#94"><h1>^</h1></button>
                     <button id="buttonEqual" class="btn btn-success equal" value="equals"><h1>=</h1></button>
                     <br><br>
                     <button id="buttonClear" class="btn btn-default clear" value="clear"><h1>clear</h1></button>
@@ -63,7 +63,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Result</h3>
                 </div>
-                <div class="panel-body">
+                <div id="result-box" class="panel-body">
                     <h1 id="firstNumber"></h1>
                     <h1 id="operator"></h1>
                     <h1 id="secondNumber"></h1>
@@ -77,6 +77,7 @@
 
 <script type="text/javascript">
 
+<<<<<<< HEAD
 var inputNum1 = true;
 //var inputNum2 = true;
 var num1 = "";
@@ -104,6 +105,79 @@ function calculator(){
     if(operator==="power")
         result = Math.pow(parseInt(num1),parseInt(num2));
 }
+=======
+$(document).ready(function(){
+
+    var inputNum1 = true;
+    var num1Value = "";
+    var inputOperator = "";
+    var num2Value = "";
+    var totalValue = "";
+    var whatsThatOperator = ""
+
+    function clear(){
+        inputNum1 = true;
+        inputOperator = "";
+        num1Value = "";
+        num2Value = "";
+        totalValue = "";
+        whatsThatOperator = "";
+        $("#firstNumber").html("");
+        $("#secondNumber").html("");
+        $("#operator").html("");
+        $("#result").html("");
+    }
+
+    function resetCalc(){
+        inputNum1 = true;
+        inputOperator = "";
+        num1Value = "";
+        num2Value = "";
+        totalValue = "";
+        whatsThatOperator = "";
+    }
+    function calculator(){
+        if(inputOperator==="plus")
+            totalValue = parseInt(num1Value) + parseInt(num2Value);
+        if(inputOperator==="minus")
+            totalValue = parseInt(num1Value) - parseInt(num2Value);
+        if(inputOperator==="divide")
+            totalValue = parseInt(num1Value) / parseInt(num2Value);
+        if(inputOperator==="times")
+            totalValue = parseInt(num1Value) * parseInt(num2Value);
+        if(inputOperator==="#94")
+            totalValue = Math.pow(parseInt(num1Value),parseInt(num2Value));
+    }
+    $(".btn").on("click", function() {
+        if (this.classList.contains("number") && inputNum1){ 
+            num1Value += $(this).val();
+            $("#firstNumber").html(num1Value);
+            $("#secondNumber").html("");
+            $("#operator").html("");
+            $("#result").html("");
+        } else
+            if (this.classList.contains("operator") && inputNum1){
+                inputOperator = $(this).val();
+                whatsThatOperator = ("&" + inputOperator + ";");
+                $("#operator").html(whatsThatOperator);
+                inputNum1 = false;
+            } else
+                if (this.classList.contains("number") && !inputNum1){
+                    num2Value += $(this).val();
+                    $("#secondNumber").html(num2Value);
+                } else
+                    if(this.classList.contains("equal") && !inputNum1 && operator!=""){
+                        calculator();
+                        $("#result").html(totalValue);
+                        resetCalc();
+                    }
+        if($(this).val()==="clear"){
+            clear();
+        }
+
+    });
+// Your code here...
+>>>>>>> 06d34f079bbd62661189c3ac9b0a915237b3d8a9
 
 $(document).ready(function(){
 
